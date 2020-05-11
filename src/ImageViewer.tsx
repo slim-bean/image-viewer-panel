@@ -18,6 +18,7 @@ interface State {
   selected?: ImageInfo;
   hover?: number;
   stream?: DataFrame;
+  lastUpdated?: number;
 }
 
 export class ImageViewer extends PureComponent<Props, State> {
@@ -103,7 +104,7 @@ export class ImageViewer extends PureComponent<Props, State> {
   onCameraUpdate = (images: DataFrame) => {
     const { source } = this.props.options;
     if (source === 'stream') {
-      this.setState({ stream: images });
+      this.setState({ stream: images, lastUpdated: Date.now() });
     } else {
       this.setState({ stream: undefined });
       this.stream.close();
